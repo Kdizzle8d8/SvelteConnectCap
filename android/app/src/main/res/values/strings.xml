@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">svelteConnect</string>
+    <string name="title_activity_main">svelteConnect</string>
+    <string name="package_name">com.connect.app</string>
+    <string name="custom_url_scheme">com.connect.app</string>
+</resources>
