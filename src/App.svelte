@@ -3,13 +3,34 @@
 
 	import { data } from "./data";
 	import { Puzzle } from "./puzzle.svelte";
-	import { ForwardIcon, HomeIcon, Loader, PuzzleIcon, SettingsIcon, ShuffleIcon } from "lucide-svelte";
+	import {
+		ForwardIcon,
+		HomeIcon,
+		Loader,
+		PuzzleIcon,
+		SettingsIcon,
+		ShuffleIcon,
+	} from "lucide-svelte";
 	import GroupBox from "./lib/ui/GroupBox.svelte";
 	import WordBox from "./lib/ui/WordBox.svelte";
 	import Notif from "./lib/ui/Notif.svelte";
 	import { Button } from "./lib/components/ui/button";
 	import { Label } from "./lib/components/ui/label";
 	import Guess from "./lib/ui/Guess.svelte";
+	import { StatusBar, Style } from "@capacitor/status-bar";
+
+	// iOS only
+	window.addEventListener("statusTap", function () {
+		console.log("statusbar tapped");
+	});
+
+	StatusBar.show();
+	const statBar = $derived.by(async () => {
+		const temp = await StatusBar.getInfo();
+		console.log(temp);
+		return temp
+	});
+
 	const loadPuzzle = () => {
 		const randNum = Math.floor(Math.random() * data.length);
 		return new Puzzle(data[randNum] as unknown as Puzzle);
@@ -90,10 +111,10 @@
 {#if toast}
 	<Notif {kind} />
 {/if}
-<div class="h-screen w-screen">
+<div class="">
 	<nav class="p-2 gap-2 flex flex-1 h-[45px] border-b-2">
-		<span class="flex  items-center mr-auto font-sans font-[600]"
-			>Puzzle for: {puzzle.title?.replaceAll("-","/")}</span
+		<span class="flex items-center mr-auto font-sans font-[600]"
+			>Puzzle for: {puzzle.title?.replaceAll("-", "/")}</span
 		>
 		<SettingsIcon />
 	</nav>
@@ -164,6 +185,7 @@
 						New Puzzle<Plus class="  ml-2 size-4" /></Button
 					> -->
 					</div>
+					{JSON.stringify(statBar)}
 				</div>
 			{:else}
 				<div class="h-full flex-1 place-content-center">

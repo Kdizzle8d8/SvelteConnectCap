@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Group } from '../../routes/puzzle/puzzle.svelte';
+    import type { Group } from "../../puzzle.svelte";
+
 
 	let { group }: { group: Group } = $props();
 	let color = $derived.by(() => {
